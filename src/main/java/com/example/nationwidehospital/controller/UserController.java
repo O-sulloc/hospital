@@ -18,9 +18,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/join")
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest userJoinRequest) {
-        UserDto userDto = userService.join(userJoinRequest);
-        return Response.success(new UserJoinResponse());
+        UserDto userDto = userService.join(userJoinRequest); //클라이언트에게서 받은 userJoinRequest를 service.join에 넣어서 처리해줘
+        //userDto 타입으로 받아서
+
+        return Response.success(new UserJoinResponse(userDto.getUserName(), userDto.getEmail())); // success 메서드로 보내주는 인자기
     }
 }
