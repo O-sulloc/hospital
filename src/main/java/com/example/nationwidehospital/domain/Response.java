@@ -20,7 +20,7 @@ public class Response<T> {
 
     public static Response<Void> error(String resultCode) {
         //실패했을 때
-        return new Response(resultCode, null); //"실패했습니다"
+        return new Response(resultCode, null); // ExceptionManager 클래스에서 사용됨. 매개변수로 받은 에러메세지를 response로 감싸서 리턴
     }
 
     public static <T> Response<T> success(T result) {

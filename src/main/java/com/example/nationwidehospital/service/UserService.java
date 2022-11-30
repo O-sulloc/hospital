@@ -3,6 +3,8 @@ package com.example.nationwidehospital.service;
 import com.example.nationwidehospital.domain.User;
 import com.example.nationwidehospital.domain.dto.UserDto;
 import com.example.nationwidehospital.domain.dto.UserJoinRequest;
+import com.example.nationwidehospital.exception.ErrorCode;
+import com.example.nationwidehospital.exception.HospitalException;
 import com.example.nationwidehospital.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ public class UserService {
         userRepository.findByUserName(request.getUserName()) //request에 있는 userName 꺼내서 중복체크하기
                 .ifPresent(user -> {
                     // 결과가 있으면 이미 가입된 UserName. 예외처리해줌
-                    throw new RuntimeException("이미 존재하는 USerName입니다.");
+                    throw new HospitalException(ErrorCode.DUPLICATED_USER_NAME, "중복된 username");
                 });
 
         //가입되지 않은 username이면 그대로 가입 진행 (save)하면 됨.
